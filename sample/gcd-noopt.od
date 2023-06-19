@@ -1,0 +1,170 @@
+
+gcd-noopt:     file format elf64-littleaarch64
+
+
+Disassembly of section .note.gnu.build-id:
+
+0000000000400120 <.note.gnu.build-id>:
+  400120:	00000004 	.inst	0x00000004 ; undefined
+  400124:	00000014 	.inst	0x00000014 ; undefined
+  400128:	00000003 	.inst	0x00000003 ; undefined
+  40012c:	00554e47 	.inst	0x00554e47 ; undefined
+  400130:	79be14d9 	ldrsh	x25, [x6, #7946]
+  400134:	3600108a 	tbz	w10, #0, 400344 <start+0xcc>
+  400138:	eef977be 	.inst	0xeef977be ; undefined
+  40013c:	4fec2c52 	.inst	0x4fec2c52 ; undefined
+  400140:	308587d0 	adr	x16, 30b239 <write_int-0xf4f0b>
+
+Disassembly of section .text:
+
+0000000000400144 <write_int>:
+  400144:	d10043ff 	sub	sp, sp, #0x10
+  400148:	b9000fe0 	str	w0, [sp, #12]
+  40014c:	90000080 	adrp	x0, 410000 <start+0xfd88>
+  400150:	910c4000 	add	x0, x0, #0x310
+  400154:	f9400000 	ldr	x0, [x0]
+  400158:	b9400fe1 	ldr	w1, [sp, #12]
+  40015c:	b9000001 	str	w1, [x0]
+  400160:	d503201f 	nop
+  400164:	910043ff 	add	sp, sp, #0x10
+  400168:	d65f03c0 	ret
+
+000000000040016c <write_char>:
+  40016c:	d10043ff 	sub	sp, sp, #0x10
+  400170:	39003fe0 	strb	w0, [sp, #15]
+  400174:	90000080 	adrp	x0, 410000 <start+0xfd88>
+  400178:	910c4000 	add	x0, x0, #0x310
+  40017c:	f9400000 	ldr	x0, [x0]
+  400180:	39403fe1 	ldrb	w1, [sp, #15]
+  400184:	39000001 	strb	w1, [x0]
+  400188:	d503201f 	nop
+  40018c:	910043ff 	add	sp, sp, #0x10
+  400190:	d65f03c0 	ret
+
+0000000000400194 <write_string>:
+  400194:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  400198:	910003fd 	mov	x29, sp
+  40019c:	f9000fa0 	str	x0, [x29, #24]
+  4001a0:	f9400fa0 	ldr	x0, [x29, #24]
+  4001a4:	39400000 	ldrb	w0, [x0]
+  4001a8:	3900bfa0 	strb	w0, [x29, #47]
+  4001ac:	3940bfa0 	ldrb	w0, [x29, #47]
+  4001b0:	7100001f 	cmp	w0, #0x0
+  4001b4:	540000e0 	b.eq	4001d0 <write_string+0x3c>  // b.none
+  4001b8:	3940bfa0 	ldrb	w0, [x29, #47]
+  4001bc:	97ffffec 	bl	40016c <write_char>
+  4001c0:	f9400fa0 	ldr	x0, [x29, #24]
+  4001c4:	91000400 	add	x0, x0, #0x1
+  4001c8:	f9000fa0 	str	x0, [x29, #24]
+  4001cc:	17fffff5 	b	4001a0 <write_string+0xc>
+  4001d0:	d503201f 	nop
+  4001d4:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  4001d8:	d65f03c0 	ret
+
+00000000004001dc <gcd>:
+  4001dc:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  4001e0:	910003fd 	mov	x29, sp
+  4001e4:	b9001fa0 	str	w0, [x29, #28]
+  4001e8:	b9001ba1 	str	w1, [x29, #24]
+  4001ec:	b9401fa1 	ldr	w1, [x29, #28]
+  4001f0:	b9401ba0 	ldr	w0, [x29, #24]
+  4001f4:	6b00003f 	cmp	w1, w0
+  4001f8:	54000061 	b.ne	400204 <gcd+0x28>  // b.any
+  4001fc:	b9401fa0 	ldr	w0, [x29, #28]
+  400200:	1400001c 	b	400270 <gcd+0x94>
+  400204:	b9401fa0 	ldr	w0, [x29, #28]
+  400208:	7100041f 	cmp	w0, #0x1
+  40020c:	54000061 	b.ne	400218 <gcd+0x3c>  // b.any
+  400210:	b9401fa0 	ldr	w0, [x29, #28]
+  400214:	14000017 	b	400270 <gcd+0x94>
+  400218:	b9401fa1 	ldr	w1, [x29, #28]
+  40021c:	b9401ba0 	ldr	w0, [x29, #24]
+  400220:	6b00003f 	cmp	w1, w0
+  400224:	540001ad 	b.le	400258 <gcd+0x7c>
+  400228:	b9401fa1 	ldr	w1, [x29, #28]
+  40022c:	b9401ba0 	ldr	w0, [x29, #24]
+  400230:	4a000020 	eor	w0, w1, w0
+  400234:	b9001fa0 	str	w0, [x29, #28]
+  400238:	b9401fa0 	ldr	w0, [x29, #28]
+  40023c:	b9401ba1 	ldr	w1, [x29, #24]
+  400240:	4a000020 	eor	w0, w1, w0
+  400244:	b9001ba0 	str	w0, [x29, #24]
+  400248:	b9401ba0 	ldr	w0, [x29, #24]
+  40024c:	b9401fa1 	ldr	w1, [x29, #28]
+  400250:	4a000020 	eor	w0, w1, w0
+  400254:	b9001fa0 	str	w0, [x29, #28]
+  400258:	b9401ba1 	ldr	w1, [x29, #24]
+  40025c:	b9401fa0 	ldr	w0, [x29, #28]
+  400260:	4b000020 	sub	w0, w1, w0
+  400264:	2a0003e1 	mov	w1, w0
+  400268:	b9401fa0 	ldr	w0, [x29, #28]
+  40026c:	97ffffdc 	bl	4001dc <gcd>
+  400270:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  400274:	d65f03c0 	ret
+
+0000000000400278 <start>:
+  400278:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  40027c:	910003fd 	mov	x29, sp
+  400280:	90000000 	adrp	x0, 400000 <write_int-0x144>
+  400284:	910b8000 	add	x0, x0, #0x2e0
+  400288:	97ffffc3 	bl	400194 <write_string>
+  40028c:	52800321 	mov	w1, #0x19                  	// #25
+  400290:	52800140 	mov	w0, #0xa                   	// #10
+  400294:	97ffffd2 	bl	4001dc <gcd>
+  400298:	97ffffab 	bl	400144 <write_int>
+  40029c:	90000000 	adrp	x0, 400000 <write_int-0x144>
+  4002a0:	910bc000 	add	x0, x0, #0x2f0
+  4002a4:	97ffffbc 	bl	400194 <write_string>
+  4002a8:	528001c1 	mov	w1, #0xe                   	// #14
+  4002ac:	528002a0 	mov	w0, #0x15                  	// #21
+  4002b0:	97ffffcb 	bl	4001dc <gcd>
+  4002b4:	97ffffa4 	bl	400144 <write_int>
+  4002b8:	90000000 	adrp	x0, 400000 <write_int-0x144>
+  4002bc:	910c0000 	add	x0, x0, #0x300
+  4002c0:	97ffffb5 	bl	400194 <write_string>
+  4002c4:	52800a61 	mov	w1, #0x53                  	// #83
+  4002c8:	528009e0 	mov	w0, #0x4f                  	// #79
+  4002cc:	97ffffc4 	bl	4001dc <gcd>
+  4002d0:	97ffff9d 	bl	400144 <write_int>
+  4002d4:	d503201f 	nop
+  4002d8:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  4002dc:	d65f03c0 	ret
+
+Disassembly of section .rodata:
+
+00000000004002e0 <.rodata>:
+  4002e0:	28646367 	.word	0x28646367
+  4002e4:	202c3031 	.word	0x202c3031
+  4002e8:	20293532 	.word	0x20293532
+  4002ec:	0000203d 	.word	0x0000203d
+  4002f0:	28646367 	.word	0x28646367
+  4002f4:	202c3132 	.word	0x202c3132
+  4002f8:	20293431 	.word	0x20293431
+  4002fc:	0000203d 	.word	0x0000203d
+  400300:	28646367 	.word	0x28646367
+  400304:	202c3937 	.word	0x202c3937
+  400308:	20293338 	.word	0x20293338
+  40030c:	Address 0x000000000040030c is out of bounds.
+
+
+Disassembly of section .data:
+
+0000000000410310 <magic>:
+  410310:	ffffffff 	.word	0xffffffff
+  410314:	ffffffff 	.word	0xffffffff
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	3a434347 	ccmn	w26, w3, #0x7, mi  // mi = first
+   4:	62552820 	.inst	0x62552820 ; undefined
+   8:	75746e75 	.inst	0x75746e75 ; undefined
+   c:	6e694c2f 	uqshl	v15.8h, v1.8h, v9.8h
+  10:	206f7261 	.inst	0x206f7261 ; undefined
+  14:	2e352e37 	uqsub	v23.8b, v17.8b, v21.8b
+  18:	75332d30 	.inst	0x75332d30 ; undefined
+  1c:	746e7562 	.inst	0x746e7562 ; undefined
+  20:	317e3175 	adds	w21, w11, #0xf8c, lsl #12
+  24:	34302e38 	cbz	w24, 605e8 <write_int-0x39fb5c>
+  28:	2e372029 	usubl	v9.8h, v1.8b, v23.8b
+  2c:	00302e35 	.inst	0x00302e35 ; NYI

@@ -1,0 +1,175 @@
+
+test_switch-noopt:     file format elf64-littleaarch64
+
+
+Disassembly of section .note.gnu.build-id:
+
+0000000000400120 <.note.gnu.build-id>:
+  400120:	00000004 	.inst	0x00000004 ; undefined
+  400124:	00000014 	.inst	0x00000014 ; undefined
+  400128:	00000003 	.inst	0x00000003 ; undefined
+  40012c:	00554e47 	.inst	0x00554e47 ; undefined
+  400130:	7d19a13c 	str	h28, [x9, #3280]
+  400134:	6939d4a2 	.inst	0x6939d4a2 ; undefined
+  400138:	5b5563a1 	.inst	0x5b5563a1 ; undefined
+  40013c:	804cbc09 	.inst	0x804cbc09 ; undefined
+  400140:	6b81454d 	subs	w13, w10, w1, asr #17
+
+Disassembly of section .text:
+
+0000000000400144 <write_char>:
+  400144:	d10043ff 	sub	sp, sp, #0x10
+  400148:	39003fe0 	strb	w0, [sp, #15]
+  40014c:	90000080 	adrp	x0, 410000 <start+0xfd8c>
+  400150:	910ce000 	add	x0, x0, #0x338
+  400154:	f9400000 	ldr	x0, [x0]
+  400158:	39403fe1 	ldrb	w1, [sp, #15]
+  40015c:	39000001 	strb	w1, [x0]
+  400160:	d503201f 	nop
+  400164:	910043ff 	add	sp, sp, #0x10
+  400168:	d65f03c0 	ret
+
+000000000040016c <write_string>:
+  40016c:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  400170:	910003fd 	mov	x29, sp
+  400174:	f9000fa0 	str	x0, [x29, #24]
+  400178:	f9400fa0 	ldr	x0, [x29, #24]
+  40017c:	39400000 	ldrb	w0, [x0]
+  400180:	3900bfa0 	strb	w0, [x29, #47]
+  400184:	3940bfa0 	ldrb	w0, [x29, #47]
+  400188:	7100001f 	cmp	w0, #0x0
+  40018c:	540000e0 	b.eq	4001a8 <write_string+0x3c>  // b.none
+  400190:	3940bfa0 	ldrb	w0, [x29, #47]
+  400194:	97ffffec 	bl	400144 <write_char>
+  400198:	f9400fa0 	ldr	x0, [x29, #24]
+  40019c:	91000400 	add	x0, x0, #0x1
+  4001a0:	f9000fa0 	str	x0, [x29, #24]
+  4001a4:	17fffff5 	b	400178 <write_string+0xc>
+  4001a8:	d503201f 	nop
+  4001ac:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  4001b0:	d65f03c0 	ret
+
+00000000004001b4 <test_switch>:
+  4001b4:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  4001b8:	910003fd 	mov	x29, sp
+  4001bc:	b9001fa0 	str	w0, [x29, #28]
+  4001c0:	b9401fa0 	ldr	w0, [x29, #28]
+  4001c4:	51000400 	sub	w0, w0, #0x1
+  4001c8:	7100181f 	cmp	w0, #0x6
+  4001cc:	54000468 	b.hi	400258 <test_switch+0xa4>  // b.pmore
+  4001d0:	90000001 	adrp	x1, 400000 <write_char-0x144>
+  4001d4:	910c6021 	add	x1, x1, #0x318
+  4001d8:	b8605820 	ldr	w0, [x1, w0, uxtw #2]
+  4001dc:	10000061 	adr	x1, 4001e8 <test_switch+0x34>
+  4001e0:	8b20c820 	add	x0, x1, w0, sxtw #2
+  4001e4:	d61f0000 	br	x0
+  4001e8:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  4001ec:	910ac000 	add	x0, x0, #0x2b0
+  4001f0:	97ffffdf 	bl	40016c <write_string>
+  4001f4:	1400001d 	b	400268 <test_switch+0xb4>
+  4001f8:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  4001fc:	910ae000 	add	x0, x0, #0x2b8
+  400200:	97ffffdb 	bl	40016c <write_string>
+  400204:	14000019 	b	400268 <test_switch+0xb4>
+  400208:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40020c:	910b0000 	add	x0, x0, #0x2c0
+  400210:	97ffffd7 	bl	40016c <write_string>
+  400214:	14000015 	b	400268 <test_switch+0xb4>
+  400218:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40021c:	910b4000 	add	x0, x0, #0x2d0
+  400220:	97ffffd3 	bl	40016c <write_string>
+  400224:	14000011 	b	400268 <test_switch+0xb4>
+  400228:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40022c:	910b8000 	add	x0, x0, #0x2e0
+  400230:	97ffffcf 	bl	40016c <write_string>
+  400234:	1400000d 	b	400268 <test_switch+0xb4>
+  400238:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40023c:	910bc000 	add	x0, x0, #0x2f0
+  400240:	97ffffcb 	bl	40016c <write_string>
+  400244:	14000009 	b	400268 <test_switch+0xb4>
+  400248:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40024c:	910be000 	add	x0, x0, #0x2f8
+  400250:	97ffffc7 	bl	40016c <write_string>
+  400254:	14000005 	b	400268 <test_switch+0xb4>
+  400258:	90000000 	adrp	x0, 400000 <write_char-0x144>
+  40025c:	910c2000 	add	x0, x0, #0x308
+  400260:	97ffffc3 	bl	40016c <write_string>
+  400264:	d503201f 	nop
+  400268:	d503201f 	nop
+  40026c:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  400270:	d65f03c0 	ret
+
+0000000000400274 <start>:
+  400274:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  400278:	910003fd 	mov	x29, sp
+  40027c:	b9001fbf 	str	wzr, [x29, #28]
+  400280:	14000006 	b	400298 <start+0x24>
+  400284:	b9401fa0 	ldr	w0, [x29, #28]
+  400288:	97ffffcb 	bl	4001b4 <test_switch>
+  40028c:	b9401fa0 	ldr	w0, [x29, #28]
+  400290:	11000400 	add	w0, w0, #0x1
+  400294:	b9001fa0 	str	w0, [x29, #28]
+  400298:	b9401fa0 	ldr	w0, [x29, #28]
+  40029c:	71001c1f 	cmp	w0, #0x7
+  4002a0:	54ffff2d 	b.le	400284 <start+0x10>
+  4002a4:	d503201f 	nop
+  4002a8:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  4002ac:	d65f03c0 	ret
+
+Disassembly of section .rodata:
+
+00000000004002b0 <.rodata>:
+  4002b0:	646e7553 	.word	0x646e7553
+  4002b4:	000a7961 	.word	0x000a7961
+  4002b8:	646e6f4d 	.word	0x646e6f4d
+  4002bc:	000a7961 	.word	0x000a7961
+  4002c0:	73657554 	.word	0x73657554
+  4002c4:	0a796164 	.word	0x0a796164
+	...
+  4002d0:	6e646557 	.word	0x6e646557
+  4002d4:	61647365 	.word	0x61647365
+  4002d8:	00000a79 	.word	0x00000a79
+  4002dc:	00000000 	.word	0x00000000
+  4002e0:	72756854 	.word	0x72756854
+  4002e4:	79616473 	.word	0x79616473
+  4002e8:	0000000a 	.word	0x0000000a
+  4002ec:	00000000 	.word	0x00000000
+  4002f0:	64697246 	.word	0x64697246
+  4002f4:	000a7961 	.word	0x000a7961
+  4002f8:	75746153 	.word	0x75746153
+  4002fc:	79616472 	.word	0x79616472
+  400300:	0000000a 	.word	0x0000000a
+  400304:	00000000 	.word	0x00000000
+  400308:	61766e49 	.word	0x61766e49
+  40030c:	2064696c 	.word	0x2064696c
+  400310:	75706e69 	.word	0x75706e69
+  400314:	00000a74 	.word	0x00000a74
+  400318:	00000000 	.word	0x00000000
+  40031c:	00000004 	.word	0x00000004
+  400320:	00000008 	.word	0x00000008
+  400324:	0000000c 	.word	0x0000000c
+  400328:	00000010 	.word	0x00000010
+  40032c:	00000014 	.word	0x00000014
+  400330:	00000018 	.word	0x00000018
+
+Disassembly of section .data:
+
+0000000000410338 <magic>:
+  410338:	ffffffff 	.word	0xffffffff
+  41033c:	ffffffff 	.word	0xffffffff
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	3a434347 	ccmn	w26, w3, #0x7, mi  // mi = first
+   4:	62552820 	.inst	0x62552820 ; undefined
+   8:	75746e75 	.inst	0x75746e75 ; undefined
+   c:	6e694c2f 	uqshl	v15.8h, v1.8h, v9.8h
+  10:	206f7261 	.inst	0x206f7261 ; undefined
+  14:	2e352e37 	uqsub	v23.8b, v17.8b, v21.8b
+  18:	75332d30 	.inst	0x75332d30 ; undefined
+  1c:	746e7562 	.inst	0x746e7562 ; undefined
+  20:	317e3175 	adds	w21, w11, #0xf8c, lsl #12
+  24:	34302e38 	cbz	w24, 605e8 <write_char-0x39fb5c>
+  28:	2e372029 	usubl	v9.8h, v1.8b, v23.8b
+  2c:	00302e35 	.inst	0x00302e35 ; NYI

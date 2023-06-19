@@ -1,0 +1,121 @@
+
+vecsum:     file format elf64-littleaarch64
+
+
+Disassembly of section .note.gnu.build-id:
+
+0000000000400120 <.note.gnu.build-id>:
+  400120:	00000004 	.inst	0x00000004 ; undefined
+  400124:	00000014 	.inst	0x00000014 ; undefined
+  400128:	00000003 	.inst	0x00000003 ; undefined
+  40012c:	00554e47 	.inst	0x00554e47 ; undefined
+  400130:	2c58fa24 	ldnp	s4, s30, [x17, #196]
+  400134:	939b766a 	.inst	0x939b766a ; undefined
+  400138:	cb0c02ca 	sub	x10, x22, x12
+  40013c:	840c5494 	ld1b	{z20.s}, p5/z, [x4, z12.s, uxtw]
+  400140:	24b90202 	cmphs	p2.s, p0/z, z16.s, #100
+
+Disassembly of section .text:
+
+0000000000400148 <write_int>:
+  400148:	90000081 	adrp	x1, 410000 <vec+0xfe18>
+  40014c:	f9413421 	ldr	x1, [x1, #616]
+  400150:	39000020 	strb	w0, [x1]
+  400154:	d65f03c0 	ret
+
+0000000000400158 <vecadd>:
+  400158:	7100003f 	cmp	w1, #0x0
+  40015c:	540001cd 	b.le	400194 <vecadd+0x3c>
+  400160:	51000421 	sub	w1, w1, #0x1
+  400164:	91002003 	add	x3, x0, #0x8
+  400168:	aa0003e2 	mov	x2, x0
+  40016c:	52800000 	mov	w0, #0x0                   	// #0
+  400170:	53017c21 	lsr	w1, w1, #1
+  400174:	8b214c61 	add	x1, x3, w1, uxtw #3
+  400178:	29400c44 	ldp	w4, w3, [x2]
+  40017c:	91002042 	add	x2, x2, #0x8
+  400180:	eb02003f 	cmp	x1, x2
+  400184:	0b040000 	add	w0, w0, w4
+  400188:	4b030000 	sub	w0, w0, w3
+  40018c:	54ffff61 	b.ne	400178 <vecadd+0x20>  // b.any
+  400190:	d65f03c0 	ret
+  400194:	52800000 	mov	w0, #0x0                   	// #0
+  400198:	d65f03c0 	ret
+  40019c:	d503201f 	nop
+
+00000000004001a0 <start>:
+  4001a0:	90000004 	adrp	x4, 400000 <write_int-0x148>
+  4001a4:	9107a084 	add	x4, x4, #0x1e8
+  4001a8:	91001081 	add	x1, x4, #0x4
+  4001ac:	52800003 	mov	w3, #0x0                   	// #0
+  4001b0:	91021084 	add	x4, x4, #0x84
+  4001b4:	52800000 	mov	w0, #0x0                   	// #0
+  4001b8:	14000002 	b	4001c0 <start+0x20>
+  4001bc:	b85fc023 	ldur	w3, [x1, #-4]
+  4001c0:	b8408422 	ldr	w2, [x1], #8
+  4001c4:	0b030000 	add	w0, w0, w3
+  4001c8:	4b020000 	sub	w0, w0, w2
+  4001cc:	eb01009f 	cmp	x4, x1
+  4001d0:	54ffff61 	b.ne	4001bc <start+0x1c>  // b.any
+  4001d4:	90000081 	adrp	x1, 410000 <vec+0xfe18>
+  4001d8:	f9413421 	ldr	x1, [x1, #616]
+  4001dc:	39000020 	strb	w0, [x1]
+  4001e0:	d65f03c0 	ret
+
+Disassembly of section .rodata:
+
+00000000004001e8 <vec>:
+  4001e8:	00000000 	.word	0x00000000
+  4001ec:	00000009 	.word	0x00000009
+  4001f0:	00000001 	.word	0x00000001
+  4001f4:	0000000a 	.word	0x0000000a
+  4001f8:	0000000d 	.word	0x0000000d
+  4001fc:	00000015 	.word	0x00000015
+  400200:	00000002 	.word	0x00000002
+  400204:	0000001d 	.word	0x0000001d
+  400208:	0000000b 	.word	0x0000000b
+  40020c:	0000000e 	.word	0x0000000e
+  400210:	00000010 	.word	0x00000010
+  400214:	00000012 	.word	0x00000012
+  400218:	00000016 	.word	0x00000016
+  40021c:	00000019 	.word	0x00000019
+  400220:	00000003 	.word	0x00000003
+  400224:	0000001e 	.word	0x0000001e
+  400228:	00000008 	.word	0x00000008
+  40022c:	0000000c 	.word	0x0000000c
+  400230:	00000014 	.word	0x00000014
+  400234:	0000001c 	.word	0x0000001c
+  400238:	0000000f 	.word	0x0000000f
+  40023c:	00000011 	.word	0x00000011
+  400240:	00000018 	.word	0x00000018
+  400244:	00000007 	.word	0x00000007
+  400248:	00000013 	.word	0x00000013
+  40024c:	0000001b 	.word	0x0000001b
+  400250:	00000017 	.word	0x00000017
+  400254:	00000006 	.word	0x00000006
+  400258:	0000001a 	.word	0x0000001a
+  40025c:	00000005 	.word	0x00000005
+  400260:	00000004 	.word	0x00000004
+  400264:	0000001f 	.word	0x0000001f
+
+Disassembly of section .data:
+
+0000000000410268 <magic>:
+  410268:	ffffffff 	.word	0xffffffff
+  41026c:	ffffffff 	.word	0xffffffff
+
+Disassembly of section .comment:
+
+0000000000000000 <.comment>:
+   0:	3a434347 	ccmn	w26, w3, #0x7, mi  // mi = first
+   4:	62552820 	.inst	0x62552820 ; undefined
+   8:	75746e75 	.inst	0x75746e75 ; undefined
+   c:	6e694c2f 	uqshl	v15.8h, v1.8h, v9.8h
+  10:	206f7261 	.inst	0x206f7261 ; undefined
+  14:	2e352e37 	uqsub	v23.8b, v17.8b, v21.8b
+  18:	75332d30 	.inst	0x75332d30 ; undefined
+  1c:	746e7562 	.inst	0x746e7562 ; undefined
+  20:	317e3175 	adds	w21, w11, #0xf8c, lsl #12
+  24:	34302e38 	cbz	w24, 605e8 <write_int-0x39fb60>
+  28:	2e372029 	usubl	v9.8h, v1.8b, v23.8b
+  2c:	00302e35 	.inst	0x00302e35 ; NYI
